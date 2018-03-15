@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.tortoise.framework.util.JsonTableUtil;
+
 /**
  * 
  * 包含“分页”信息的List
@@ -104,7 +106,7 @@ public class PageOffsetList<E> implements Serializable {
 		PageOffsetList<String > noteList = new PageOffsetList<String>();
 		noteList.add("1");
 		noteList.setLimit(10);
-//		System.out.println(JsonTableUtil.toJson(noteList));
+		System.out.println(JsonTableUtil.toJson(noteList));
 	}
 	
 }
