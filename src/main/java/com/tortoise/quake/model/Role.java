@@ -22,7 +22,7 @@ public class Role implements Serializable {
     /**
      * 角色描述
      **/
-    private String desc;
+    private String description;
 
     /**
      * 创建者
@@ -76,15 +76,13 @@ public class Role implements Serializable {
         return this.roleCode;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public String getDesc() {
-        return this.desc;
-    }
-
-    public void setCreateId(String createId) {
+    public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public void setCreateId(String createId) {
         this.createId = createId;
     }
 
