@@ -33,17 +33,21 @@
 						<form role="form" class="form-horizontal m-t">
                             
                             <div class="form-group draggable ui-draggable">
-                                <label class="col-sm-3 control-label" style="width: auto;">密码框：</label>
+                                <label class="col-sm-3 control-label" style="width: auto;">用户名：</label>
                                 <div class="col-sm-3" style="width: 200px;">
-                                    <input class="form-control" name="password" placeholder="请输入密码" type="password"/>
+                                    <input class="form-control" name="s_username" id="s_username" placeholder="请输入用户名" type="text"/>
                                 </div>
-                                <label class="col-sm-3 control-label" style="width: auto;">密码框：</label>
+                                <label class="col-sm-3 control-label" style="width: auto;">姓名：</label>
                                 <div class="col-sm-3" style="width: 200px;">
-                                    <input class="form-control" name="password" placeholder="请输入密码" type="password"/>
+                                    <input class="form-control" name="s_realname" id="s_realname" placeholder="请输入姓名" type="text"/>
                                 </div>
-                                <div class="col-sm-12 col-sm-offset-3">
-                                    <button class="btn btn-primary" type="submit">查询</button>
-                                    <button class="btn btn-white" type="submit">重置</button>
+                                <label class="col-sm-3 control-label" style="width: auto;">电话：</label>
+                                <div class="col-sm-3" style="width: 200px;">
+                                    <input class="form-control" name="s_telephone" id="s_telephone" placeholder="请输入电话" type="text"/>
+                                </div>
+                                <div class="col-sm-3" style="width: 200px;">
+                                    <button class="btn btn-primary search" type="button">查询</button>
+                                    <button class="btn btn-white reset" type="reset">重置</button>
                                 </div>
                             </div>
                             
@@ -64,6 +68,7 @@
 									<th>更新人</th>
 									<th>更新时间</th>
 									<th>是否删除</th>
+									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -119,10 +124,10 @@
 	                        "mDataProp" : "roleName"
 	                      }, 
 	                      { 
-	                        "mDataProp" : "realCode"
+	                        "mDataProp" : "roleCode"
 	                      }, 
 	                      { 
-	                        "mDataProp" : "desc"
+	                        "mDataProp" : "description"
 	                      }, 
 	                      { 
 		                        "mDataProp" : "createId"
