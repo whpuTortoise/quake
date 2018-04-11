@@ -44,18 +44,19 @@ public class RoleController {
 	@ResponseBody
 	@GetMapping("/getRoleList")
 	public String getRoleList(HttpServletRequest request, HttpServletResponse response, PageReqVo pageReqVo) {
-		Map<String, Object> queryMap = new HashMap<String, Object>();
-		List<Role> roles = mRoleService.queryList(queryMap, pageReqVo.getiDisplayStart(), pageReqVo.getiDisplayLength());
-		int count = mRoleService.count(queryMap);
-		// 为操作次数加1，必须这样做 
-		int initEcho = pageReqVo.getsEcho() + 1;
-		   
-		PageRespVo<Role> pageRespVo = new PageRespVo<Role>();
-		pageRespVo.setsEcho(initEcho);
-		pageRespVo.setiTotalRecords(count);
-		pageRespVo.setiTotalDisplayRecords(count);
-		pageRespVo.setAaData(roles);
-		return JsonUtil.toJson(pageRespVo);
+//		Map<String, Object> queryMap = new HashMap<String, Object>();
+//		List<Role> roles = mRoleService.queryList(queryMap, pageReqVo.getStart(), pageReqVo.getLength());
+//		int count = mRoleService.count(queryMap);
+//		// 为操作次数加1，必须这样做 
+//		int initEcho = pageReqVo.getDraw() + 1;
+//		   
+//		PageRespVo<Role> pageRespVo = new PageRespVo<Role>();
+//		pageRespVo.setsEcho(initEcho);
+//		pageRespVo.setiTotalRecords(count);
+//		pageRespVo.setiTotalDisplayRecords(count);
+//		pageRespVo.setAoData(roles);
+//		return JsonUtil.toJson(pageRespVo);
+		return null;
 	}
 	
 	

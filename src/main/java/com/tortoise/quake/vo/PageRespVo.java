@@ -3,37 +3,24 @@ package com.tortoise.quake.vo;
 import java.util.List;
 
 public class PageRespVo<T> {
-	private Integer sEcho;
 	//数据总条数 
-	private Integer iTotalRecords;
-	//显示的条数 
-	private Integer iTotalDisplayRecords;
+	private Integer total;
 	//数据
-	private List<T> aaData;
-	public Integer getsEcho() {
-		return sEcho;
+	private List<T> aoData;
+	
+	public List<T> getAoData() {
+		return aoData;
 	}
-	public void setsEcho(Integer sEcho) {
-		this.sEcho = sEcho;
+	public void setAoData(List<T> aoData) {
+		this.aoData = aoData;
 	}
-	public Integer getiTotalRecords() {
-		return iTotalRecords;
+	public Integer getTotal() {
+		return total;
 	}
-	public void setiTotalRecords(Integer iTotalRecords) {
-		this.iTotalRecords = iTotalRecords;
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
-	public Integer getiTotalDisplayRecords() {
-		return iTotalDisplayRecords;
-	}
-	public void setiTotalDisplayRecords(Integer iTotalDisplayRecords) {
-		this.iTotalDisplayRecords = iTotalDisplayRecords;
-	}
-	public List<T> getAaData() {
-		return aaData;
-	}
-	public void setAaData(List<T> aaData) {
-		this.aaData = aaData;
-	}
+	
 	
 	
 	

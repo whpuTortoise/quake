@@ -6,31 +6,36 @@ package com.tortoise.quake.vo;
  *
  */
 public class PageReqVo {
-	// 记录操作的次数 每次加1 
-	private Integer sEcho;
-	//起始
-	private Integer iDisplayStart; 
-	//长度
-	private Integer iDisplayLength;
 	
-	public Integer getsEcho() {
-		return sEcho;
-	}
-	public void setsEcho(Integer sEcho) {
-		this.sEcho = sEcho;
-	}
-	public Integer getiDisplayStart() {
-		return iDisplayStart;
-	}
-	public void setiDisplayStart(Integer iDisplayStart) {
-		this.iDisplayStart = iDisplayStart;
-	}
-	public Integer getiDisplayLength() {
-		return iDisplayLength;
-	}
-	public void setiDisplayLength(Integer iDisplayLength) {
-		this.iDisplayLength = iDisplayLength;
-	}
+		// 每页多少条数据
+		private Integer limit;
+		//起始
+		private Integer offset; 
+		
+		private String name;
+		public Integer getLimit() {
+			return limit;
+		}
+		public void setLimit(Integer limit) {
+			this.limit = limit;
+		}
+		
+		public Integer getOffset() {
+			return offset;
+		}
+		public void setOffset(Integer offset) {
+			this.offset = offset;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+	
+		
+		
+	
 	
 	
 	
