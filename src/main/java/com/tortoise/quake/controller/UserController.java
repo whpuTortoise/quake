@@ -16,12 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tortoise.framework.paginter.domain.PageBounds;
 import com.tortoise.framework.util.JsonUtil;
 import com.tortoise.quake.model.User;
 import com.tortoise.quake.service.UserService;
-import com.tortoise.quake.vo.PageReqVo;
-import com.tortoise.quake.vo.PageRespVo;
+import com.tortoise.quake.vo.page.PageRespVo;
+import com.tortoise.quake.vo.page.UserPageReqVo;
 
 @RequestMapping("/user")
 @Controller
@@ -39,8 +38,6 @@ public class UserController {
 		return "sys/user/userManager";
 	}
 	
-
-	
 	/**
 	 * 获取用户列表
 	 * @param request
@@ -48,17 +45,20 @@ public class UserController {
 	 */
 	@ResponseBody
 	@PostMapping("/getUserList")
-	public String getUserListPost(HttpServletRequest request, HttpServletResponse response, PageReqVo pageReqVo) {
+	public String getUserListPost(HttpServletRequest request, HttpServletResponse response, UserPageReqVo pageReqVo) {
 		Map<String, Object> queryMap = new HashMap<String, Object>();
-		if(!StringUtils.isEmpty(pageReqVo.getName())){
-			queryMap.put("username", pageReqVo.getName());
+		if(!StringUtils.isEmpty(pageReqVo.getSearchUserName())){
+			queryMap.put("username", pageReqVo.getSearchUserName());
+		}
+		if(!StringUtils.isEmpty(pageReqVo.getSearchTel())){
+			queryMap.put("tel", pageReqVo.getSearchTel());
 		}
 		List<User> users = mUserService.queryList(queryMap, pageReqVo.getOffset(), pageReqVo.getLimit());
 		int count = mUserService.count(queryMap);
 		   
 		PageRespVo<User> pageRespVo = new PageRespVo<User>();
 		pageRespVo.setTotal(count);
-		pageRespVo.setAoData(users);
+		pageRespVo.setRows(users);
 		return JsonUtil.toJson(pageRespVo);
 	}
 	

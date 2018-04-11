@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tortoise.framework.util.JsonUtil;
 import com.tortoise.quake.model.Role;
 import com.tortoise.quake.service.RoleService;
-import com.tortoise.quake.vo.PageReqVo;
-import com.tortoise.quake.vo.PageRespVo;
+import com.tortoise.quake.vo.page.PageReqVo;
+import com.tortoise.quake.vo.page.PageRespVo;
 
 @RequestMapping("/role")
 @Controller
