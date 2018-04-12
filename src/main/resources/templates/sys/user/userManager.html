@@ -201,6 +201,7 @@
 	    	$("#mytab").bootstrapTable('destroy'); 
 	    	    $('#mytab').bootstrapTable({
 	    	        method: 'post',
+	    	        contentType: "application/x-www-form-urlencoded",
 	    	        url:"/user/getUserList",//要请求数据的文件路径
 	    	        //height:tableHeight(),//高度调整
 	    	        toolbar: '#toolbar',//指定工具栏
@@ -247,7 +248,7 @@
 	    	            {
 	    	                title:'创建日期',
 	    	                field:'createTime'
-	    	            },
+	    	            }, 
 	    	            {
 	    	                title:'操作',
 	    	                field:'id',
