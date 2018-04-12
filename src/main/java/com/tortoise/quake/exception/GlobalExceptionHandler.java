@@ -26,14 +26,14 @@ public class GlobalExceptionHandler {
      * @return
      * @throws Exception
      */
-    @ExceptionHandler(value = Exception.class)
-    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("message", e.getMessage());
-        mav.addObject("url", req.getRequestURL());
-        mav.setViewName(DEFAULT_ERROR_VIEW);
-        return mav;
-    }
+//    @ExceptionHandler(value = Exception.class)
+//    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+//        ModelAndView mav = new ModelAndView();
+//        mav.addObject("message", e.getMessage());
+//        mav.addObject("url", req.getRequestURL());
+//        mav.setViewName(DEFAULT_ERROR_VIEW);
+//        return mav;
+//    }
     
 //    /**
 //     * 返回JSON格式的异常处理。
