@@ -45,7 +45,7 @@ public class UserController {
 	 */
 	@ResponseBody
 	@PostMapping("/getUserList")
-	public String getUserListPost(HttpServletRequest request, HttpServletResponse response, UserPageReqVo pageReqVo) {
+	public String getUserList(HttpServletRequest request, HttpServletResponse response, UserPageReqVo pageReqVo) {
 		Map<String, Object> queryMap = new HashMap<String, Object>();
 		if(!StringUtils.isEmpty(pageReqVo.getSearchUserName())){
 			queryMap.put("username", pageReqVo.getSearchUserName());
@@ -60,6 +60,41 @@ public class UserController {
 		pageRespVo.setTotal(count);
 		pageRespVo.setRows(users);
 		return JsonUtil.toJson(pageRespVo);
+	}
+	
+	/**
+	 * 保存用户
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping("/saveUser")
+	public String saveUser(HttpServletRequest request, HttpServletResponse response, User user) {
+		try {
+			if(StringUtils.isEmpty(user.getId())){
+				mUserService.insert(user);
+			}else{
+				mUserService.update(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+		return "success";
+	}
+	
+	@ResponseBody
+	@PostMapping("/deleteUsers")
+	public String deleteUsers(HttpServletRequest request, HttpServletResponse response, String ids) {
+		try {
+			mUserService.batchDelete(ids.split(","), String.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+		return "success";
 	}
 	
 	
