@@ -37,6 +37,12 @@ public class LoginController {
 		model.addAttribute("menus", menuService.getMenuTree());
 		return "system/index";
 	}
+	
+	@GetMapping("/welcome")
+	public String toWelcome(Model model) {
+		return "system/welcome";
+	}
+
 
 //	/**
 //	 * 登录
