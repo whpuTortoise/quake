@@ -24,7 +24,7 @@ public class LoginController {
 	 */
 	@GetMapping("/login")
 	public String toLogin(Model model) {
-		return "sys/login";
+		return "system/login";
 	}
 	
 	/**
@@ -35,7 +35,7 @@ public class LoginController {
 	@GetMapping("/index")
 	public String toIndex(Model model) {
 		model.addAttribute("menus", menuService.getMenuTree());
-		return "sys/index";
+		return "system/index";
 	}
 
 //	/**
