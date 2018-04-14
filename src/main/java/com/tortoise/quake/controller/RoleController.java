@@ -33,7 +33,7 @@ public class RoleController {
 	 */
 	@GetMapping("/manager")
 	public String manager(Model model) {
-		return "sys/role/roleManager";
+		return "system/role/roleManager";
 	}
 	
 	/**

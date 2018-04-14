@@ -3,9 +3,10 @@ package com.tortoise.framework.dto;
 import java.io.Serializable;
 
 public class ApiResult implements Serializable {
+	private static final long serialVersionUID = 5328934827636086473L;
+	
 	public static final Integer SUCCESS = 1;
 	public static final Integer FAILURE = 0;
-	private static final long serialVersionUID = 5328934827636086473L;
 
 	/**
 	 * 操作成功标识

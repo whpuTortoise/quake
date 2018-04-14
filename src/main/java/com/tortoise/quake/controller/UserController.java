@@ -16,12 +16,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tortoise.framework.dto.ApiResult;
 import com.tortoise.framework.util.JsonUtil;
 import com.tortoise.quake.model.User;
 import com.tortoise.quake.service.UserService;
 import com.tortoise.quake.vo.page.PageRespVo;
 import com.tortoise.quake.vo.page.UserPageReqVo;
 
+/**
+ * 
+* @Project: quake
+* @Title: UserController.java
+* @Package com.tortoise.quake.controller
+* @Description: 用户管理
+* @author WangZhi
+* @date 2018年4月14日 下午7:57:06
+* @Copyright: 2018 
+* @version V1.0
+ */
 @RequestMapping("/user")
 @Controller
 public class UserController {
@@ -29,19 +41,24 @@ public class UserController {
 	private UserService mUserService;
 	
 	/**
-	 * 用户管理跳转
+	 * 用户管理页面跳转
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/manager")
 	public String manager(Model model) {
-		return "sys/user/userManager";
+		return "system/user/userManager";
 	}
 	
 	/**
-	 * 获取用户列表
-	 * @param request
-	 * @return
+	 * 
+	* @Title: getUserList 
+	* @Description: 获取用户列表
+	* @param request
+	* @param response
+	* @param pageReqVo
+	* @return String     
+	* @throws
 	 */
 	@ResponseBody
 	@PostMapping("/getUserList")
@@ -55,7 +72,7 @@ public class UserController {
 		}
 		List<User> users = mUserService.queryList(queryMap, pageReqVo.getOffset(), pageReqVo.getLimit());
 		int count = mUserService.count(queryMap);
-		   
+
 		PageRespVo<User> pageRespVo = new PageRespVo<User>();
 		pageRespVo.setTotal(count);
 		pageRespVo.setRows(users);
@@ -71,7 +88,7 @@ public class UserController {
 	 */
 	@ResponseBody
 	@PostMapping("/saveUser")
-	public String saveUser(HttpServletRequest request, HttpServletResponse response, User user) {
+	public ApiResult saveUser(HttpServletRequest request, HttpServletResponse response, User user) {
 		try {
 			if(StringUtils.isEmpty(user.getId())){
 				mUserService.insert(user);
@@ -80,23 +97,31 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "fail";
+			return new ApiResult(ApiResult.FAILURE, "保存失败！", null);
 		}
-		return "success";
+		return new ApiResult(ApiResult.SUCCESS, "保存成功！", null);
 	}
 	
+	/**
+	 * 
+	* @Title: deleteUsers 
+	* @Description: 删除用户
+	* @param request
+	* @param response
+	* @param ids
+	* @return String     
+	* @throws
+	 */
 	@ResponseBody
 	@PostMapping("/deleteUsers")
-	public String deleteUsers(HttpServletRequest request, HttpServletResponse response, String ids) {
+	public ApiResult deleteUsers(HttpServletRequest request, HttpServletResponse response, String ids) {
 		try {
 			mUserService.batchDelete(ids.split(","), String.class);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "fail";
+			return new ApiResult(ApiResult.FAILURE, "删除失败！", null);
 		}
-		return "success";
+		return new ApiResult(ApiResult.SUCCESS, "删除成功！", null);
 	}
-	
-	
 	
 }
