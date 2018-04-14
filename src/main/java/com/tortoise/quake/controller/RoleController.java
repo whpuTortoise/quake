@@ -10,15 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tortoise.framework.dto.ApiResult;
 import com.tortoise.framework.util.JsonUtil;
 import com.tortoise.quake.model.Role;
 import com.tortoise.quake.service.RoleService;
-import com.tortoise.quake.vo.page.PageReqVo;
 import com.tortoise.quake.vo.page.PageRespVo;
+import com.tortoise.quake.vo.page.RolePageReqVo;
 
 @RequestMapping("/role")
 @Controller
@@ -27,7 +30,7 @@ public class RoleController {
 	private RoleService mRoleService;
 	
 	/**
-	 * 角色管理跳转
+	 * 角色管理页面跳转
 	 * @param model
 	 * @return
 	 */
@@ -37,26 +40,75 @@ public class RoleController {
 	}
 	
 	/**
-	 * 获取角色列表
+	 * 
+	* @Title: getRoleList 
+	* @Description: 获取角色列表
+	* @param request
+	* @param response
+	* @param pageReqVo
+	* @return String     
+	* @throws
+	 */
+	@ResponseBody
+	@PostMapping("/getRoleList")
+	public String getRoleList(HttpServletRequest request, HttpServletResponse response, RolePageReqVo pageReqVo) {
+		Map<String, Object> queryMap = new HashMap<String, Object>();
+		if(!StringUtils.isEmpty(pageReqVo.getSearchRoleName())){
+			queryMap.put("roleName", pageReqVo.getSearchRoleName());
+		}
+		
+		List<Role> roles = mRoleService.queryList(queryMap, pageReqVo.getOffset(), pageReqVo.getLimit());
+		int count = mRoleService.count(queryMap);
+
+		PageRespVo<Role> pageRespVo = new PageRespVo<Role>();
+		pageRespVo.setTotal(count);
+		pageRespVo.setRows(roles);
+		return JsonUtil.toJson(pageRespVo);
+	}
+	
+	/**
+	 * 保存角色
 	 * @param request
+	 * @param response
+	 * @param user
 	 * @return
 	 */
 	@ResponseBody
-	@GetMapping("/getRoleList")
-	public String getRoleList(HttpServletRequest request, HttpServletResponse response, PageReqVo pageReqVo) {
-//		Map<String, Object> queryMap = new HashMap<String, Object>();
-//		List<Role> roles = mRoleService.queryList(queryMap, pageReqVo.getStart(), pageReqVo.getLength());
-//		int count = mRoleService.count(queryMap);
-//		// 为操作次数加1，必须这样做 
-//		int initEcho = pageReqVo.getDraw() + 1;
-//		   
-//		PageRespVo<Role> pageRespVo = new PageRespVo<Role>();
-//		pageRespVo.setsEcho(initEcho);
-//		pageRespVo.setiTotalRecords(count);
-//		pageRespVo.setiTotalDisplayRecords(count);
-//		pageRespVo.setAoData(roles);
-//		return JsonUtil.toJson(pageRespVo);
-		return null;
+	@PostMapping("/saveRole")
+	public ApiResult saveRole(HttpServletRequest request, HttpServletResponse response, Role role) {
+		try {
+			if(StringUtils.isEmpty(role.getId())){
+				mRoleService.insert(role);
+			}else{
+				mRoleService.update(role);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ApiResult(ApiResult.FAILURE, "保存失败！", null);
+		}
+		return new ApiResult(ApiResult.SUCCESS, "保存成功！", null);
+	}
+	
+	/**
+	 * 
+	* @Title: deleteUsers 
+	* @Description: 删除角色
+	* @param request
+	* @param response
+	* @param ids
+	* @return String     
+	* @throws
+	 */
+	@ResponseBody
+	@PostMapping("/deleteRoles")
+	public ApiResult deleteRoles(HttpServletRequest request, HttpServletResponse response, String ids) {
+		try {
+			mRoleService.batchDelete(ids.split(","), String.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ApiResult(ApiResult.FAILURE, "删除失败！", null);
+		}
+		return new ApiResult(ApiResult.SUCCESS, "删除成功！", null);
 	}
 	
 	
