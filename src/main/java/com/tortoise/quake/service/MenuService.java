@@ -20,6 +20,10 @@ public class MenuService extends BaseService<Menu, MenuMapper> {
 		this.mapper = mapper;
 	}
 	
+	/**
+	 * 获取完整的菜单树
+	 * @return
+	 */
 	public List<MenuVo> getMenuTree(){
 		List<Menu> menus = queryAll();
 		
@@ -36,6 +40,12 @@ public class MenuService extends BaseService<Menu, MenuMapper> {
 		return menuVos;
 	}
 	
+	/**
+	 * 递归获取子节点
+	 * @param menus
+	 * @param pId
+	 * @return
+	 */
 	private List<MenuVo> getChildren(List<Menu> menus, Long pId){
 		List<MenuVo> menuVos = new ArrayList<MenuVo>();
 		for(Menu menu : menus){
@@ -49,5 +59,42 @@ public class MenuService extends BaseService<Menu, MenuMapper> {
 		return menuVos;
 	}
 	
+	/**
+	 * 删除菜单及其子菜单（递归删除）
+	 * @param id
+	 */
+	public void deleteMenusById(Long id){
+		List<Object> ids = new ArrayList<Object>();
+		
+		List<MenuVo> menus = getMenuTree();
+		for(MenuVo menu : menus){
+			if(menu.getId() == id){
+				ids.add(id);
+				if(menu.getChildren() != null && menu.getChildren().size() > 0){
+					ids.addAll(getChildIds(menu.getChildren()));
+				}
+				break;
+			}
+		}
+		
+		batchDelete(ids);
+	}
+	
+	/**
+	 * 递归获取子节点ID
+	 * @param menus
+	 * @return
+	 */
+	private List<Long> getChildIds(List<MenuVo> menus){
+		List<Long> ids = new ArrayList<Long>();
+		for(MenuVo menu : menus){
+			ids.add(menu.getId());
+			if(menu.getChildren() != null && menu.getChildren().size() > 0){
+				ids.addAll(getChildIds(menu.getChildren()));
+			}
+		}
+		
+		return ids;
+	}
 
 }
