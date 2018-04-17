@@ -46,7 +46,12 @@ public class MenuController {
 		return "system/menu/menuManager";
 	}
 	
-	
+	/**
+	 * 获取完整的菜单树
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@ResponseBody
 	@PostMapping("/getMenuTree")
 	public ApiResult getMenuTree(HttpServletRequest request, HttpServletResponse response) {
@@ -89,8 +94,7 @@ public class MenuController {
 	* @Description: 删除菜单及其子菜单
 	* @param request
 	* @param response
-	* @param ids
-	* @return String     
+	* @param id
 	* @throws
 	 */
 	@ResponseBody

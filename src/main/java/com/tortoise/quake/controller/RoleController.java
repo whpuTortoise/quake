@@ -40,6 +40,19 @@ public class RoleController {
 	}
 	
 	/**
+	 * 获取所有角色
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@GetMapping("/getAllRole")
+	public ApiResult getAllRole(HttpServletRequest request, HttpServletResponse response){
+		List<Role> roles = mRoleService.queryAll();
+		return new ApiResult(ApiResult.SUCCESS, "", roles);
+	}
+	
+	/**
 	 * 
 	* @Title: getRoleList 
 	* @Description: 获取角色列表
