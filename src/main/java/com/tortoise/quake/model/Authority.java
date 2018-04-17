@@ -1,7 +1,6 @@
 package com.tortoise.quake.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Authority implements Serializable {
 
