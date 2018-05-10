@@ -18,6 +18,10 @@ public class Department implements Serializable {
      * 部门编码
      **/
     private String departmentCode;
+    
+    private Integer level;
+    
+    private Long pid;
 
     /**
      * 创建者
@@ -72,6 +76,22 @@ public class Department implements Serializable {
 		this.departmentCode = departmentCode;
 	}
 
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	public Long getPid() {
+		return pid;
+	}
+
+	public void setPid(Long pid) {
+		this.pid = pid;
+	}
+
 	public String getCreateId() {
 		return createId;
 	}
@@ -112,6 +132,6 @@ public class Department implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
- 
+
 
 }
