@@ -6,8 +6,12 @@ import java.util.Date;
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    public Menu() {
+    
+    }
 
-    private Long id;
+    private Integer id;
 
     /**
      * 菜单名称
@@ -32,12 +36,12 @@ public class Menu implements Serializable {
     /**
      * 菜单层级
      **/
-    private Integer level;
+    private Integer menuLevel;
 
     /**
      * 父级菜单ID
      **/
-    private Long pid;
+    private Integer menuPid;
 
     /**
      * 创建人
@@ -63,103 +67,103 @@ public class Menu implements Serializable {
      * 是否删除
      **/
     private Integer isDeleted;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getMenuName() {
+		return menuName;
+	}
+
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
+	}
+
+	public String getMenuCode() {
+		return menuCode;
+	}
+
+	public void setMenuCode(String menuCode) {
+		this.menuCode = menuCode;
+	}
+
+	public String getMenuIcon() {
+		return menuIcon;
+	}
+
+	public void setMenuIcon(String menuIcon) {
+		this.menuIcon = menuIcon;
+	}
+
+	public String getTargetUrl() {
+		return targetUrl;
+	}
+
+	public void setTargetUrl(String targetUrl) {
+		this.targetUrl = targetUrl;
+	}
+
+	public Integer getMenuLevel() {
+		return menuLevel;
+	}
+
+	public void setMenuLevel(Integer menuLevel) {
+		this.menuLevel = menuLevel;
+	}
+
+	public Integer getMenuPid() {
+		return menuPid;
+	}
+
+	public void setMenuPid(Integer menuPid) {
+		this.menuPid = menuPid;
+	}
+
+	public String getCreateId() {
+		return createId;
+	}
+
+	public void setCreateId(String createId) {
+		this.createId = createId;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getUpdateId() {
+		return updateId;
+	}
+
+	public void setUpdateId(String updateId) {
+		this.updateId = updateId;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public Integer getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(Integer isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+  
     
-    public Menu() {
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
-    }
-
-    public String getMenuName() {
-        return this.menuName;
-    }
-
-    public void setMenuCode(String menuCode) {
-        this.menuCode = menuCode;
-    }
-
-    public String getMenuCode() {
-        return this.menuCode;
-    }
-
-    public void setMenuIcon(String menuIcon) {
-        this.menuIcon = menuIcon;
-    }
-
-    public String getMenuIcon() {
-        return this.menuIcon;
-    }
-
-    public void setTargetUrl(String targetUrl) {
-        this.targetUrl = targetUrl;
-    }
-
-    public String getTargetUrl() {
-        return this.targetUrl;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public Integer getLevel() {
-        return this.level;
-    }
-
-    public void setPid(Long pid) {
-        this.pid = pid;
-    }
-
-    public Long getPid() {
-        return this.pid;
-    }
-
-    public void setCreateId(String createId) {
-        this.createId = createId;
-    }
-
-    public String getCreateId() {
-        return this.createId;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getCreateTime() {
-        return this.createTime;
-    }
-
-    public void setUpdateId(String updateId) {
-        this.updateId = updateId;
-    }
-
-    public String getUpdateId() {
-        return this.updateId;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Date getUpdateTime() {
-        return this.updateTime;
-    }
-
-    public void setIsDeleted(Integer isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
-    public Integer getIsDeleted() {
-        return this.isDeleted;
-    }
-
+    
 }

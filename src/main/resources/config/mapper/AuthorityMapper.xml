@@ -3,23 +3,23 @@
 <mapper namespace="com.tortoise.quake.dao.AuthorityMapper">
 
 	<resultMap id="BaseResultMap" type="com.tortoise.quake.model.Authority">
-		<id column="id" property="id" jdbcType="BIGINT" />
-		<result column="role_id" property="roleId" jdbcType="BIGINT" />
-		<result column="menu_id" property="menuId" jdbcType="BIGINT" />
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+		<result column="menu_code" property="menuCode" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id,role_id,menu_id
+		id,role_code,menu_code
 	</sql>
 
 	<sql id="Alias_Column_List">
-		t.id,t.role_id,t.menu_id
+		t.id,t.role_code,t.menu_code
 	</sql>
 
 	<sql id="Base_Condition">
 		<where>
-		   <if test="roleId != null">and t.role_id = #{roleId,jdbcType=BIGINT}</if>
-		   <if test="menuId != null">and t.menu_id = #{menuId,jdbcType=BIGINT}</if>
+		   <if test="roleCode != null">and t.role_code = #{roleId,jdbcType=VARCHAR}</if>
+		   <if test="menuCode != null">and t.menu_code = #{menuId,jdbcType=VARCHAR}</if>
 		   <!-- 自定义 -->
 		</where>
 	</sql>
@@ -40,51 +40,51 @@
 	</select>
 
 	<!-- 通过主键查询对象 -->
-	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from sys_authority
-		where id = #{id,jdbcType=BIGINT}
+		where id = #{id,jdbcType=INTEGER}
 	</select>
 
 	<!-- 通过主键删除对象 -->
-	<delete id="deleteById" parameterType="java.lang.Long">
+	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sys_authority
-		where id = #{id,jdbcType=BIGINT}
+		where id = #{id,jdbcType=INTEGER}
 	</delete>
 
 	<!-- 新增对象(所有字段) -->
 	<insert id="insertAllField" parameterType="com.tortoise.quake.model.Authority">
-		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
-			SELECT LAST_INSERT_ID() AS id
+		<selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+			SELECT SEQ_SYS_AUTHORITY_ID AS id from dual
 		</selectKey>
 
 		insert into sys_authority(
 			<include refid="Base_Column_List" />
 		)
 		values(
-			#{id,jdbcType=BIGINT},
-			#{roleId,jdbcType=BIGINT},
-			#{menuId,jdbcType=BIGINT}
+			#{id,jdbcType=INTEGER},
+			#{roleCode,jdbcType=VARCHAR},
+			#{menuCode,jdbcType=VARCHAR}
 		)
 	</insert>
 
 	<!-- 新增对象(部分字段) -->
 	<insert id="insert" parameterType="com.tortoise.quake.model.Authority">
-		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
-			SELECT LAST_INSERT_ID() AS id
+		<selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+			SELECT SEQ_SYS_AUTHORITY_ID AS id from dual
 		</selectKey>
-
+		
 		insert into sys_authority
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">id,</if>
-			<if test="roleId != null">role_id,</if>
-			<if test="menuId != null">menu_id,</if>
+			<if test="roleCode != null">role_code,</if>
+			<if test="menuCode != null">menu_code,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">id,</if>
-			<if test="roleId != null">#{roleId,jdbcType=BIGINT},</if>
-			<if test="menuId != null">#{menuId,jdbcType=BIGINT},</if>
+			<if test="roleCode != null">#{roleCode,jdbcType=VARCHAR},</if>
+			<if test="menuCode != null">#{menuCode,jdbcType=VARCHAR},</if>
 		</trim>
 	</insert>
 
@@ -92,19 +92,19 @@
 	<update id="update" parameterType="com.tortoise.quake.model.Authority">
 		update sys_authority
 		<set>
-			<if test="roleId != null">role_id = #{roleId,jdbcType=BIGINT},</if>
-			<if test="menuId != null">menu_id = #{menuId,jdbcType=BIGINT},</if>
+			<if test="roleCode != null">role_code = #{roleCode,jdbcType=VARCHAR},</if>
+			<if test="menuCode != null">menu_code = #{menuCode,jdbcType=VARCHAR},</if>
 		</set>
-		where id = #{id,jdbcType=BIGINT}
+		where id = #{id,jdbcType=INTEGER}
 	</update>
 
 	<!-- 修改对象(所有字段) -->
 	<update id="updateAllField" parameterType="com.tortoise.quake.model.Authority">
 		update sys_authority
 		set
-			role_id = #{roleId,jdbcType=BIGINT},
-			menu_id = #{menuId,jdbcType=BIGINT}
-		where id = #{id,jdbcType=BIGINT}
+			role_code = #{roleCode,jdbcType=VARCHAR},
+			menu_code = #{menuCode,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
 	</update>
 
 	<!-- 批量插入(所有字段) -->
@@ -112,14 +112,15 @@
 		insert into sys_authority(
 			<include refid="Base_Column_List" />
 		)
-		values
-		<foreach collection="list" index="index" item="item" separator=",">
-		(
+		select SEQ_SYS_AUTHORITY_ID, A.* from(
+		<foreach collection="list" index="index" item="item" separator="union all">
+			select
 			#{item.id}
-			<choose><when test="item.roleId != null">,#{item.roleId}</when><otherwise>,default</otherwise></choose>
-			<choose><when test="item.menuId != null">,#{item.menuId}</when><otherwise>,default</otherwise></choose>
-		)
+			<choose><when test="item.roleCode != null">,#{item.roleCode}</when><otherwise>,default</otherwise></choose>
+			<choose><when test="item.menuCode != null">,#{item.menuCode}</when><otherwise>,default</otherwise></choose>
+			from dual
 		</foreach>
+		)A
 	</insert>
 
 	<!-- 批量插入或更新(所有字段) -->
@@ -127,15 +128,16 @@
 		insert into sys_authority(
 			<include refid="Base_Column_List" />
 		)
-		values
+		select SEQ_SYS_AUTHORITY_ID, A.* from(
 		<foreach collection="list" index="index" item="item" separator=",">
-		(
+			select
 			#{item.id}
 			<choose><when test="item.roleId != null">,#{item.roleId}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.menuId != null">,#{item.menuId}</when><otherwise>,default</otherwise></choose>
-		)
+			from dual
 		</foreach>
-		on duplicate key update role_id = values(role_id), menu_id = values(menu_id)
+		) A
+		on duplicate key update role_code = values(role_code), menu_id = values(menu_code)
 	</update>
 
 	<!-- 批量删除 -->
@@ -149,9 +151,9 @@
 	<!-- 自定义 -->
 	
 	<!-- 根据角色ID删除权限  -->
-	<delete id="deleteByRoleId" parameterType="java.lang.Long">
+	<delete id="deleteByRoleCode" parameterType="java.lang.Integer">
 		delete from sys_authority
-		where role_id = #{roleId,jdbcType=BIGINT}
+		where role_code = #{roleCode,jdbcType=BIGINT}
 	</delete>
 	
 </mapper>

@@ -37,7 +37,7 @@ public class BaseService<T, M extends BaseMapper<T>> {
 	 * 
 	 * @return 影响行数
 	 */
-	public int deleteById(Long id) {
+	public int deleteById(Integer id) {
 		return mapper.deleteById(id);
 	}
 
@@ -48,7 +48,7 @@ public class BaseService<T, M extends BaseMapper<T>> {
 	 *            数据ID值
 	 * 
 	 */
-	public T selectById(Long id) {
+	public T selectById(Integer id) {
 		return (T) mapper.selectById(id);
 	}
 

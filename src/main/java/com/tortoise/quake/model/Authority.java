@@ -6,43 +6,51 @@ public class Authority implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private Integer id;
 
     /**
      * 角色ID
      **/
-    private Long roleId;
+    private String roleCode;
 
     /**
      * 菜单ID
      **/
-    private Long menuId;
+    private String menuCode;
 
     
     public Authority() {
     }
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public Long getId() {
-        return this.id;
-    }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Long getRoleId() {
-        return this.roleId;
-    }
 
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Long getMenuId() {
-        return this.menuId;
-    }
+
+	public String getRoleCode() {
+		return roleCode;
+	}
+
+
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
+
+
+	public String getMenuCode() {
+		return menuCode;
+	}
+
+
+	public void setMenuCode(String menuCode) {
+		this.menuCode = menuCode;
+	}
+   
 
 }

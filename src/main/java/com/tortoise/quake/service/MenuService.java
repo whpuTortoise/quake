@@ -29,7 +29,7 @@ public class MenuService extends BaseService<Menu, MenuMapper> {
 		
 		List<MenuVo> menuVos = new ArrayList<MenuVo>();
 		for(Menu menu : menus){
-			if(menu.getPid() == 0){
+			if(menu.getMenuPid().intValue() == 0){
 				MenuVo menuVo = new MenuVo();
 				BeanUtils.copyProperties(menu, menuVo);
 				menuVo.setChildren(getChildren(menus, menuVo.getId()));
@@ -46,10 +46,10 @@ public class MenuService extends BaseService<Menu, MenuMapper> {
 	 * @param pId
 	 * @return
 	 */
-	private List<MenuVo> getChildren(List<Menu> menus, Long pId){
+	private List<MenuVo> getChildren(List<Menu> menus, Number pId){
 		List<MenuVo> menuVos = new ArrayList<MenuVo>();
 		for(Menu menu : menus){
-			if(menu.getPid() == pId){
+			if(menu.getMenuPid() == pId){
 				MenuVo menuVo = new MenuVo();
 				BeanUtils.copyProperties(menu, menuVo);
 				menuVo.setChildren(getChildren(menus, menuVo.getId()));
@@ -63,7 +63,7 @@ public class MenuService extends BaseService<Menu, MenuMapper> {
 	 * 删除菜单及其子菜单（递归删除）
 	 * @param id
 	 */
-	public void deleteMenusById(Long id){
+	public void deleteMenusById(Number id){
 		List<Object> ids = new ArrayList<Object>();
 		
 		List<MenuVo> menus = getMenuTree();
@@ -85,8 +85,8 @@ public class MenuService extends BaseService<Menu, MenuMapper> {
 	 * @param menus
 	 * @return
 	 */
-	private List<Long> getChildIds(List<MenuVo> menus){
-		List<Long> ids = new ArrayList<Long>();
+	private List<Number> getChildIds(List<MenuVo> menus){
+		List<Number> ids = new ArrayList<Number>();
 		for(MenuVo menu : menus){
 			ids.add(menu.getId());
 			if(menu.getChildren() != null && menu.getChildren().size() > 0){

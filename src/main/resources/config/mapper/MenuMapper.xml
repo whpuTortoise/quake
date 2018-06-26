@@ -3,26 +3,26 @@
 <mapper namespace="com.tortoise.quake.dao.MenuMapper">
 
 	<resultMap id="BaseResultMap" type="com.tortoise.quake.model.Menu">
-		<id column="id" property="id" jdbcType="BIGINT" />
+		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="menu_name" property="menuName" jdbcType="VARCHAR" />
 		<result column="menu_code" property="menuCode" jdbcType="VARCHAR" />
 		<result column="menu_icon" property="menuIcon" jdbcType="VARCHAR" />
 		<result column="target_url" property="targetUrl" jdbcType="VARCHAR" />
-		<result column="level" property="level" jdbcType="TINYINT" />
-		<result column="pid" property="pid" jdbcType="BIGINT" />
+		<result column="menu_level" property="menuLevel" jdbcType="INTEGER" />
+		<result column="menu_pid" property="menuPid" jdbcType="INTEGER" />
 		<result column="create_id" property="createId" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="update_id" property="updateId" jdbcType="VARCHAR" />
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-		<result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id,menu_name,menu_code,menu_icon,target_url,level,pid,create_id,create_time,update_id,update_time,is_deleted
+		id,menu_name,menu_code,menu_icon,target_url,menu_level,menu_pid,create_id,create_time,update_id,update_time,is_deleted
 	</sql>
 
 	<sql id="Alias_Column_List">
-		t.id,t.menu_name,t.menu_code,t.menu_icon,t.target_url,t.level,t.pid,t.create_id,t.create_time,t.update_id,t.update_time,t.is_deleted
+		t.id,t.menu_name,t.menu_code,t.menu_icon,t.target_url,t.menu_level,t.menu_pid,t.create_id,t.create_time,t.update_id,t.update_time,t.is_deleted
 	</sql>
 
 	<sql id="Base_Condition">
@@ -32,8 +32,8 @@
 		   <if test="menuCode != null">and t.menu_code = #{menuCode,jdbcType=VARCHAR}</if>
 		   <if test="menuIcon != null">and t.menu_icon = #{menuIcon,jdbcType=VARCHAR}</if>
 		   <if test="targetUrl != null">and t.target_url = #{targetUrl,jdbcType=VARCHAR}</if>
-		   <if test="level != null">and t.level = #{level,jdbcType=TINYINT}</if>
-		   <if test="pid != null">and t.pid = #{pid,jdbcType=BIGINT}</if>
+		   <if test="menuLevel != null">and t.menu_level = #{menuLevel,jdbcType=INTEGER}</if>
+		   <if test="menuPid != null">and t.menu_pid = #{menuPid,jdbcType=INTEGER}</if>
 		   <!-- 自定义 -->
 		</where>
 	</sql>
@@ -54,48 +54,48 @@
 	</select>
 
 	<!-- 通过主键查询对象 -->
-	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from sys_menu
-		where id = #{id,jdbcType=BIGINT} and is_deleted = 0
+		where id = #{id,jdbcType=INTEGER} and is_deleted = 0
 	</select>
 
 	<!-- 通过主键删除对象 -->
-	<delete id="deleteById" parameterType="java.lang.Long">
+	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sys_menu
-		where id = #{id,jdbcType=BIGINT}
+		where id = #{id,jdbcType=INTEGER}
 	</delete>
 
-	<!-- 新增对象(所有字段) -->
+	 <!-- 新增对象(所有字段) -->
 	<insert id="insertAllField" parameterType="com.tortoise.quake.model.Menu">
-		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
-			SELECT LAST_INSERT_ID() AS id
+		<selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+			SELECT SEQ_SYS_MENU_ID.nextval AS id from dual
 		</selectKey>
 
 		insert into sys_menu(
 			<include refid="Base_Column_List" />
 		)
 		values(
-			#{id,jdbcType=BIGINT},
+			#{id,jdbcType=INTEGER},
 			#{menuName,jdbcType=VARCHAR},
 			#{menuCode,jdbcType=VARCHAR},
 			#{menuIcon,jdbcType=VARCHAR},
 			#{targetUrl,jdbcType=VARCHAR},
-			#{level,jdbcType=TINYINT},
-			#{pid,jdbcType=BIGINT},
+			#{menuLevel,jdbcType=INTEGER},
+			#{menuPid,jdbcType=INTEGER},
 			#{createId,jdbcType=VARCHAR},
 			#{createTime,jdbcType=TIMESTAMP},
 			#{updateId,jdbcType=VARCHAR},
 			#{updateTime,jdbcType=TIMESTAMP},
-			#{isDeleted,jdbcType=TINYINT}
+			#{isDeleted,jdbcType=INTEGER}
 		)
 	</insert>
 
 	<!-- 新增对象(部分字段) -->
 	<insert id="insert" parameterType="com.tortoise.quake.model.Menu">
-		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
-			SELECT LAST_INSERT_ID() AS id
+		<selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+			SELECT SEQ_SYS_MENU_ID.nextval AS id from dual
 		</selectKey>
 
 		insert into sys_menu
@@ -105,8 +105,8 @@
 			<if test="menuCode != null">menu_code,</if>
 			<if test="menuIcon != null">menu_icon,</if>
 			<if test="targetUrl != null">target_url,</if>
-			<if test="level != null">level,</if>
-			<if test="pid != null">pid,</if>
+			<if test="menuLevel != null">menu_level,</if>
+			<if test="menuPid != null">menu_pid,</if>
 			<if test="createId != null">create_id,</if>
 			<if test="createTime != null">create_time,</if>
 			<if test="updateId != null">update_id,</if>
@@ -114,18 +114,18 @@
 			<if test="isDeleted != null">is_deleted,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">id,</if>
+			<if test="id != null">#{id,jdbcType=INTEGER},</if>
 			<if test="menuName != null">#{menuName,jdbcType=VARCHAR},</if>
 			<if test="menuCode != null">#{menuCode,jdbcType=VARCHAR},</if>
 			<if test="menuIcon != null">#{menuIcon,jdbcType=VARCHAR},</if>
 			<if test="targetUrl != null">#{targetUrl,jdbcType=VARCHAR},</if>
-			<if test="level != null">#{level,jdbcType=TINYINT},</if>
-			<if test="pid != null">#{pid,jdbcType=BIGINT},</if>
+			<if test="menuLevel != null">#{menuLevel,jdbcType=INTEGER},</if>
+			<if test="menuPid != null">#{menuPid,jdbcType=INTEGER},</if>
 			<if test="createId != null">#{createId,jdbcType=VARCHAR},</if>
 			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
 			<if test="updateId != null">#{updateId,jdbcType=VARCHAR},</if>
 			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
-			<if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+			<if test="isDeleted != null">#{isDeleted,jdbcType=INTEGER},</if>
 		</trim>
 	</insert>
 
@@ -137,15 +137,15 @@
 			<if test="menuCode != null">menu_code = #{menuCode,jdbcType=VARCHAR},</if>
 			<if test="menuIcon != null">menu_icon = #{menuIcon,jdbcType=VARCHAR},</if>
 			<if test="targetUrl != null">target_url = #{targetUrl,jdbcType=VARCHAR},</if>
-			<if test="level != null">level = #{level,jdbcType=TINYINT},</if>
-			<if test="pid != null">pid = #{pid,jdbcType=BIGINT},</if>
+			<if test="menuLevel != null">menu_level = #{menuLevel,jdbcType=INTEGER},</if>
+			<if test="menuPid != null">menu_pid = #{menuPid,jdbcType=INTEGER},</if>
 			<if test="createId != null">create_id = #{createId,jdbcType=VARCHAR},</if>
 			<if test="createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
 			<if test="updateId != null">update_id = #{updateId,jdbcType=VARCHAR},</if>
 			<if test="updateTime != null">update_time = #{updateTime,jdbcType=TIMESTAMP},</if>
-			<if test="isDeleted != null">is_deleted = #{isDeleted,jdbcType=TINYINT},</if>
+			<if test="isDeleted != null">is_deleted = #{isDeleted,jdbcType=INTEGER},</if>
 		</set>
-		where id = #{id,jdbcType=BIGINT}
+		where id = #{id,jdbcType=INTEGER}
 	</update>
 
 	<!-- 修改对象(所有字段) -->
@@ -156,14 +156,14 @@
 			menu_code = #{menuCode,jdbcType=VARCHAR},
 			menu_icon = #{menuIcon,jdbcType=VARCHAR},
 			target_url = #{targetUrl,jdbcType=VARCHAR},
-			level = #{level,jdbcType=TINYINT},
-			pid = #{pid,jdbcType=BIGINT},
+			menu_level = #{menuLevel,jdbcType=INTEGER},
+			menu_pid = #{menuPid,jdbcType=INTEGER},
 			create_id = #{createId,jdbcType=VARCHAR},
 			create_time = #{createTime,jdbcType=TIMESTAMP},
 			update_id = #{updateId,jdbcType=VARCHAR},
 			update_time = #{updateTime,jdbcType=TIMESTAMP},
-			is_deleted = #{isDeleted,jdbcType=TINYINT}
-		where id = #{id,jdbcType=BIGINT}
+			is_deleted = #{isDeleted,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
 	</update>
 
 	<!-- 批量插入(所有字段) -->
@@ -171,10 +171,9 @@
 		insert into sys_menu(
 			<include refid="Base_Column_List" />
 		)
-		values
-		<foreach collection="list" index="index" item="item" separator=",">
-		(
-			#{item.id}
+		SELECT SEQ_SYS_MENU_ID.nextval,A.* from(
+		<foreach collection="list" index="index" item="item" separator="union all">
+			select
 			<choose><when test="item.menuName != null">,#{item.menuName}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.menuCode != null">,#{item.menuCode}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.menuIcon != null">,#{item.menuIcon}</when><otherwise>,default</otherwise></choose>
@@ -186,8 +185,9 @@
 			<choose><when test="item.updateId != null">,#{item.updateId}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.updateTime != null">,#{item.updateTime}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.isDeleted != null">,#{item.isDeleted}</when><otherwise>,default</otherwise></choose>
-		)
+			from dual
 		</foreach>
+		) A
 	</insert>
 
 	<!-- 批量插入或更新(所有字段) -->
@@ -224,7 +224,6 @@
 	</delete>
 
 	<!-- 自定义 -->
-	
 	
 	
 </mapper>

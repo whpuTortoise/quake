@@ -3,24 +3,24 @@
 <mapper namespace="com.tortoise.quake.dao.DepartmentMapper">
 
 	<resultMap id="BaseResultMap" type="com.tortoise.quake.model.Department">
-		<id column="id" property="id" jdbcType="BIGINT" />
+		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="department_name" property="departmentName" jdbcType="VARCHAR" />
 		<result column="department_code" property="departmentCode" jdbcType="VARCHAR" />
-		<result column="level" property="level" jdbcType="TINYINT" />
-		<result column="pid" property="pid" jdbcType="BIGINT" />
+		<result column="department_level" property="departmentLevel" jdbcType="INTEGER" />
+		<result column="department_pid" property="departmentPid" jdbcType="INTEGER" />
 		<result column="create_id" property="createId" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="update_id" property="updateId" jdbcType="VARCHAR" />
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-		<result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id,department_name,department_code,level,pid,create_id,create_time,update_id,update_time,is_deleted
+		id,department_name,department_code,department_level,department_pid,create_id,create_time,update_id,update_time,is_deleted
 	</sql>
 
 	<sql id="Alias_Column_List">
-		t.id,t.department_name,t.department_code,t.level,t.pid,t.create_id,t.create_time,t.update_id,t.update_time,t.is_deleted
+		t.id,t.department_name,t.department_code,t.department_level,t.department_pid,t.create_id,t.create_time,t.update_id,t.update_time,t.is_deleted
 	</sql>
 
 	<sql id="Base_Condition">
@@ -48,55 +48,54 @@
 	</select>
 
 	<!-- 通过主键查询对象 -->
-	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from sys_department
-		where id = #{id,jdbcType=BIGINT} and is_deleted = 0
+		where id = #{id,jdbcType=INTEGER} and is_deleted = 0
 	</select>
 
 	<!-- 通过主键删除对象 -->
-	<delete id="deleteById" parameterType="java.lang.Long">
+	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from sys_department
-		where id = #{id,jdbcType=BIGINT}
+		where id = #{id,jdbcType=INTEGER}
 	</delete>
 
 	<!-- 新增对象(所有字段) -->
 	<insert id="insertAllField" parameterType="com.tortoise.quake.model.Department">
-		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
-			SELECT LAST_INSERT_ID() AS id
+		<selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+			SELECT SEQ_SYS_DEPARTMENT_ID AS id from dual
 		</selectKey>
 
 		insert into sys_department(
 			<include refid="Base_Column_List" />
 		)
 		values(
-			#{id,jdbcType=BIGINT},
+			#{id,jdbcType=INTEGER},
 			#{departmentName,jdbcType=VARCHAR},
 			#{departmentCode,jdbcType=VARCHAR},
-			#{level,jdbcType=TINYINT},
-			#{pid,jdbcType=BIGINT},
+			#{departmentLevel,jdbcType=INTEGER},
+			#{departmentPid,jdbcType=INTEGER},
 			#{createId,jdbcType=VARCHAR},
 			#{createTime,jdbcType=TIMESTAMP},
 			#{updateId,jdbcType=VARCHAR},
 			#{updateTime,jdbcType=TIMESTAMP},
-			#{isDeleted,jdbcType=TINYINT}
+			#{isDeleted,jdbcType=INTEGER}
 		)
 	</insert>
 
 	<!-- 新增对象(部分字段) -->
 	<insert id="insert" parameterType="com.tortoise.quake.model.Department">
-		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
-			SELECT LAST_INSERT_ID() AS id
+		<selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+			SELECT SEQ_SYS_DEPARTMENT_ID AS id from dual
 		</selectKey>
-
 		insert into sys_department
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">id,</if>
 			<if test="departmentName != null">department_name,</if>
 			<if test="departmentCode != null">department_code,</if>
-			<if test="level != null">level,</if>
-			<if test="pid != null">pid,</if>
+			<if test="departmentLevel != null">department_level,</if>
+			<if test="departmentPid != null">department_pid,</if>
 			<if test="createId != null">create_id,</if>
 			<if test="createTime != null">create_time,</if>
 			<if test="updateId != null">update_id,</if>
@@ -107,13 +106,13 @@
 			<if test="id != null">id,</if>
 			<if test="departmentName != null">#{departmentName,jdbcType=VARCHAR},</if>
 			<if test="departmentCode != null">#{departmentCode,jdbcType=VARCHAR},</if>
-			<if test="level != null">#{level,jdbcType=TINYINT},</if>
-			<if test="pid != null">#{pid,jdbcType=BIGINT},</if>
+			<if test="departmentLevel != null">#{departmentLevel,jdbcType=INTEGER},</if>
+			<if test="departmentPid != null">#{departmentPid,jdbcType=INTEGER},</if>
 			<if test="createId != null">#{createId,jdbcType=VARCHAR},</if>
 			<if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
 			<if test="updateId != null">#{updateId,jdbcType=VARCHAR},</if>
 			<if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
-			<if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+			<if test="isDeleted != null">#{isDeleted,jdbcType=INTEGER},</if>
 		</trim>
 	</insert>
 
@@ -123,15 +122,15 @@
 		<set>
 			<if test="departmentName != null">role_name = #{departmentName,jdbcType=VARCHAR},</if>
 			<if test="departmentCode != null">role_code = #{departmentCode,jdbcType=VARCHAR},</if>
-			<if test="level != null">level = #{level,jdbcType=TINYINT},</if>
-			<if test="pid != null">pid = #{pid,jdbcType=BIGINT},</if>
+			<if test="departmentLevel != null">departmentLevel = #{departmentLevel,jdbcType=INTEGER},</if>
+			<if test="departmentPid != null">departmentPid = #{departmentPid,jdbcType=INTEGER},</if>
 			<if test="createId != null">create_id = #{createId,jdbcType=VARCHAR},</if>
 			<if test="createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
 			<if test="updateId != null">update_id = #{updateId,jdbcType=VARCHAR},</if>
 			<if test="updateTime != null">update_time = #{updateTime,jdbcType=TIMESTAMP},</if>
-			<if test="isDeleted != null">is_deleted = #{isDeleted,jdbcType=TINYINT},</if>
+			<if test="isDeleted != null">is_deleted = #{isDeleted,jdbcType=INTEGER},</if>
 		</set>
-		where id = #{id,jdbcType=BIGINT}
+		where id = #{id,jdbcType=INTEGER}
 	</update>
 
 	<!-- 修改对象(所有字段) -->
@@ -140,13 +139,13 @@
 		set
 			department_name = #{departmentName,jdbcType=VARCHAR},
 			department_code = #{departmentCode,jdbcType=VARCHAR},
-			level = #{level,jdbcType=TINYINT},
-			pid = #{pid,jdbcType=BIGINT},
+			department_level = #{departmentLevel,jdbcType=INTEGER},
+			department_pid = #{departmentPid,jdbcType=INTEGER},
 			create_id = #{createId,jdbcType=VARCHAR},			create_time = #{createTime,jdbcType=TIMESTAMP},
 			update_id = #{updateId,jdbcType=VARCHAR},
 			update_time = #{updateTime,jdbcType=TIMESTAMP},
-			is_deleted = #{isDeleted,jdbcType=TINYINT}
-		where id = #{id,jdbcType=BIGINT}
+			is_deleted = #{isDeleted,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
 	</update>
 
 	<!-- 批量插入(所有字段) -->
@@ -154,21 +153,22 @@
 		insert into sys_department(
 			<include refid="Base_Column_List" />
 		)
-		values
-		<foreach collection="list" index="index" item="item" separator=",">
-		(
+		select SEQ_SYS_DEPARTMENT_ID.NEXTVAL,A.* from(
+		<foreach collection="list" index="index" item="item" separator="union all">
+			select
 			#{item.id}
 			<choose><when test="item.departmentName != null">,#{item.departmentName}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.departmentCode != null">,#{item.departmentCode}</when><otherwise>,default</otherwise></choose>
-			<choose><when test="item.level != null">,#{item.level}</when><otherwise>,default</otherwise></choose>
-			<choose><when test="item.pid != null">,#{item.pid}</when><otherwise>,default</otherwise></choose>
+			<choose><when test="item.departmentLevel != null">,#{item.departmentLevel}</when><otherwise>,default</otherwise></choose>
+			<choose><when test="item.departmentPid != null">,#{item.departmentPid}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.createId != null">,#{item.createId}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.createTime != null">,#{item.createTime}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.updateId != null">,#{item.updateId}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.updateTime != null">,#{item.updateTime}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.isDeleted != null">,#{item.isDeleted}</when><otherwise>,default</otherwise></choose>
-		)
+			from dual
 		</foreach>
+		)A
 	</insert>
 
 	<!-- 批量插入或更新(所有字段) -->
@@ -176,14 +176,15 @@
 		insert into sys_department(
 			<include refid="Base_Column_List" />
 		)
-		values
-		<foreach collection="list" index="index" item="item" separator=",">
+		select SEQ_SYS_DEPARTMENT_ID.NEXTVAL,A.* from(
+		<foreach collection="list" index="index" item="item" separator="union all">
 		(
+			select
 			#{item.id}
 			<choose><when test="item.departmentName != null">,#{item.departmentName}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.departmentCode != null">,#{item.departmentCode}</when><otherwise>,default</otherwise></choose>
-			<choose><when test="item.level != null">,#{item.level}</when><otherwise>,default</otherwise></choose>
-			<choose><when test="item.pid != null">,#{item.pid}</when><otherwise>,default</otherwise></choose>
+			<choose><when test="item.departmentLevel != null">,#{item.departmentLevel}</when><otherwise>,default</otherwise></choose>
+			<choose><when test="item.departmentPid != null">,#{item.departmentPid}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.createId != null">,#{item.createId}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.createTime != null">,#{item.createTime}</when><otherwise>,default</otherwise></choose>
 			<choose><when test="item.updateId != null">,#{item.updateId}</when><otherwise>,default</otherwise></choose>
@@ -191,7 +192,7 @@
 			<choose><when test="item.isDeleted != null">,#{item.isDeleted}</when><otherwise>,default</otherwise></choose>
 		)
 		</foreach>
-		on duplicate key update department_name = values(department_name), department_code = values(department_code), level=values(level), pid=values(pid), create_id = values(create_id), create_time = values(create_time), update_id = values(update_id), update_time = values(update_time), is_deleted = values(is_deleted)
+		on duplicate key update department_name = values(department_name), department_code = values(department_code), department_level=values(departmentLevel), department_pid=values(departmentPid), create_id = values(create_id), create_time = values(create_time), update_id = values(update_id), update_time = values(update_time), is_deleted = values(is_deleted)
 	</update>
 
 	<!-- 批量删除 -->

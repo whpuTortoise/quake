@@ -8,5 +8,5 @@ public interface AuthorityMapper extends BaseMapper<Authority> {
 	/**
 	 * 根据角色ID删除权限
 	 */
-	int deleteByRoleId(Long roleId);
+	int deleteByRoleCode(String roleCode);
 }
