@@ -75,6 +75,9 @@ public class UserController {
 
 		PageRespVo<User> pageRespVo = new PageRespVo<User>();
 		pageRespVo.setTotal(count);
+		for(int i=0;i<users.size();i++) {
+			users.get(i).setRealName("彭鹏");
+		}
 		pageRespVo.setRows(users);
 		return JsonUtil.toJson(pageRespVo);
 	}

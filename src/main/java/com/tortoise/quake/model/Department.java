@@ -7,7 +7,7 @@ public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private Integer id;
 
     /**
      * 部门名称
@@ -18,6 +18,14 @@ public class Department implements Serializable {
      * 部门编码
      **/
     private String departmentCode;
+    /**
+     * 部门等级
+     */
+    private Integer departmentLevel;
+    /**
+     * 部门父ID
+     */
+    private Integer departmentPid;
 
     /**
      * 创建者
@@ -48,11 +56,11 @@ public class Department implements Serializable {
     	
     }
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -70,6 +78,22 @@ public class Department implements Serializable {
 
 	public void setDepartmentCode(String departmentCode) {
 		this.departmentCode = departmentCode;
+	}
+
+	public Integer getDepartmentLevel() {
+		return departmentLevel;
+	}
+
+	public void setDepartmentLevel(Integer departmentLevel) {
+		this.departmentLevel = departmentLevel;
+	}
+
+	public Integer getDepartmentPid() {
+		return departmentPid;
+	}
+
+	public void setDepartmentPid(Integer departmentPid) {
+		this.departmentPid = departmentPid;
 	}
 
 	public String getCreateId() {
@@ -112,6 +136,6 @@ public class Department implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
- 
+	
 
 }

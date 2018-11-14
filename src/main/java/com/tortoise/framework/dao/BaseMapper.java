@@ -20,7 +20,7 @@ public interface BaseMapper<T> {
 	/**
 	 * 根据ID删除
 	 */
-	int deleteById(Long id);
+	int deleteById(Integer id);
 
 	/**
 	 * 新增
@@ -70,7 +70,7 @@ public interface BaseMapper<T> {
 	/**
 	 * 根据主键查询
 	 */
-	T selectById(Long id);
+	T selectById(Integer id);
 
 	/**
 	 * 更新(如果对象属性为空,不更新)

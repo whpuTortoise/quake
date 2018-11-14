@@ -7,7 +7,7 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private Integer id;
 
     /**
      * 用户名
@@ -62,15 +62,19 @@ public class User implements Serializable {
     
     public User() {
     }
-    public void setId(Long id) {
-        this.id = id;
-    }
+  
 
-    public Long getId() {
-        return this.id;
-    }
+    public Integer getId() {
+		return id;
+	}
 
-    public void setUsername(String username) {
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public void setUsername(String username) {
         this.username = username;
     }
 

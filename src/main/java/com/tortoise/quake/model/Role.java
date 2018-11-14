@@ -7,7 +7,7 @@ public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private Integer id;
 
     /**
      * 角色名称
@@ -52,74 +52,96 @@ public class Role implements Serializable {
     
     public Role() {
     }
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public Long getId() {
-        return this.id;
-    }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getRoleName() {
-        return this.roleName;
-    }
 
-    public void setRoleCode(String roleCode) {
-        this.roleCode = roleCode;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getRoleCode() {
-        return this.roleCode;
-    }
 
-    public String getDescription() {
+	public String getRoleName() {
+		return roleName;
+	}
+
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+
+	public String getRoleCode() {
+		return roleCode;
+	}
+
+
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
+
+
+	public String getDescription() {
 		return description;
 	}
+
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
+	public String getCreateId() {
+		return createId;
+	}
+
+
 	public void setCreateId(String createId) {
-        this.createId = createId;
-    }
+		this.createId = createId;
+	}
 
-    public String getCreateId() {
-        return this.createId;
-    }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    public Date getCreateTime() {
-        return this.createTime;
-    }
 
-    public void setUpdateId(String updateId) {
-        this.updateId = updateId;
-    }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-    public String getUpdateId() {
-        return this.updateId;
-    }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+	public String getUpdateId() {
+		return updateId;
+	}
 
-    public Date getUpdateTime() {
-        return this.updateTime;
-    }
 
-    public void setIsDeleted(Integer isDeleted) {
-        this.isDeleted = isDeleted;
-    }
+	public void setUpdateId(String updateId) {
+		this.updateId = updateId;
+	}
 
-    public Integer getIsDeleted() {
-        return this.isDeleted;
-    }
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+
+	public Integer getIsDeleted() {
+		return isDeleted;
+	}
+
+
+	public void setIsDeleted(Integer isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+  
 
 }

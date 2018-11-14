@@ -19,7 +19,7 @@ public class AuthorityService extends BaseService<Authority, AuthorityMapper> {
 	/**
 	 * 根据角色ID删除权限
 	 */
-	public int deleteByRoleId(Long roleId){
-		return mapper.deleteByRoleId(roleId);
+	public int deleteByRoleCode(String roleCode){
+		return mapper.deleteByRoleCode(roleCode);
 	}
 }

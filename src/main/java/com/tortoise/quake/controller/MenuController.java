@@ -76,7 +76,7 @@ public class MenuController {
 	public ApiResult saveMenu(HttpServletRequest request, HttpServletResponse response, Menu menu) {
 		try {
 			if(StringUtils.isEmpty(menu.getId())){
-				menu.setLevel(menu.getLevel()+1);
+				menu.setMenuLevel(menu.getMenuLevel()+1);
 				mMenuService.insert(menu);
 			}else{
 				mMenuService.update(menu);

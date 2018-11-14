@@ -70,16 +70,16 @@ $(function() {
 		
 		var node = getSelectNode();
 		if(node == null){ //新增根节点
-			$("#pid").val(0);
-			$("#level").val(0);
+			$("#menuPid").val(0);
+			$("#menuLevel").val(0);
 			$("#pmenuName").val('无');
 			$('#editModal').modal();
 		}else{ //新增子节点
-			if(node.level >= 3){ //达到最大层级，无法新建
+			if(node.menuLevel >= 3){ //达到最大层级，无法新建
 				swal("最大只支持三级节点", "", "error");
 			}else{
-				$("#pid").val(node.id);
-				$("#level").val(node.level);
+				$("#menuPid").val(node.id);
+				$("#menuLevel").val(node.menuLevel);
 				$("#pmenuName").val(node.menuName);
 				$('#editModal').modal();
 			}
@@ -92,8 +92,8 @@ $(function() {
 		if(node == null){ 
 			swal("请选择要编辑的节点", "", "warning");
 		}else{ 
-			$("#pid").val(node.pid);
-			$("#level").val(node.level);
+			$("#menuPid").val(node.menuPid);
+			$("#menuLevel").val(node.menuLevel);
 			$("#id").val(node.id);
 			$("#menuName").val(node.menuName);
 			$("#menuCode").val(node.menuCode);

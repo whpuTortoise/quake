@@ -94,21 +94,21 @@ public class AuthorityController {
 	 */
 	@ResponseBody
 	@PostMapping("/saveAuthority")
-	public ApiResult saveAuthority(HttpServletRequest request, HttpServletResponse response, String menuIds, String roleId) {
+	public ApiResult saveAuthority(HttpServletRequest request, HttpServletResponse response, String menuCodes, String roleCode) {
 		try {
-			Long roleIdL = 0L;
-			if(!StringUtils.isEmpty(roleId)){
-				roleIdL = Long.parseLong(roleId);
-				mAuthorityService.deleteByRoleId(roleIdL);
+			String roleCodeL = "0L";
+			if(!StringUtils.isEmpty(roleCode)){
+				roleCodeL = roleCode;
+				mAuthorityService.deleteByRoleCode(roleCodeL);
 			}
 			
-			if(!StringUtils.isEmpty(menuIds)){
-				String[] menus = menuIds.split(",");
+			if(!StringUtils.isEmpty(menuCodes)){
+				String[] menus = menuCodes.split(",");
 				List<Authority> list = new ArrayList<Authority>();
 				for(int i = 0; i < menus.length; i++){
 					Authority authority = new Authority();
-					authority.setRoleId(roleIdL);
-					authority.setMenuId(Long.parseLong(menus[i]));
+					authority.setRoleCode(roleCodeL);
+					authority.setMenuCode(menus[i]);
 					list.add(authority);
 				}
 				mAuthorityService.batchInsert(list);

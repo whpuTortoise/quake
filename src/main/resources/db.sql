@@ -1,4 +1,17 @@
+/*
+Navicat MySQL Data Transfer
 
+Source Server         : localhost
+Source Server Version : 50722
+Source Host           : localhost:3306
+Source Database       : quake
+
+Target Server Type    : MYSQL
+Target Server Version : 50722
+File Encoding         : 65001
+
+Date: 2018-05-10 18:11:04
+*/
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -28,6 +41,30 @@ INSERT INTO `sys_authority` VALUES ('14', '2', '6');
 INSERT INTO `sys_authority` VALUES ('15', '2', '12');
 
 -- ----------------------------
+-- Table structure for `sys_department`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_department`;
+CREATE TABLE `sys_department` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `department_name` varchar(100) NOT NULL DEFAULT '' COMMENT '部门名称',
+  `department_code` varchar(20) NOT NULL DEFAULT '' COMMENT '部门编码',
+  `level` tinyint(4) NOT NULL DEFAULT '1' COMMENT '部门层级',
+  `pid` bigint(20) NOT NULL DEFAULT '0' COMMENT '父级部门ID',
+  `create_id` varchar(20) DEFAULT '' COMMENT '创建者',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_id` varchar(20) NOT NULL DEFAULT '' COMMENT '更新人',
+  `update_time` timestamp NULL DEFAULT NULL COMMENT '更新时间',
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`id`,`department_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_department
+-- ----------------------------
+INSERT INTO `sys_department` VALUES ('1', '业务发展部', '1', '1', '0', '', '2018-05-10 10:00:31', '', null, '0');
+INSERT INTO `sys_department` VALUES ('2', '人力资源部', '2', '1', '0', '', '2018-05-10 10:00:38', '', null, '0');
+
+-- ----------------------------
 -- Table structure for `sys_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
@@ -45,7 +82,7 @@ CREATE TABLE `sys_menu` (
   `update_time` timestamp NULL DEFAULT NULL COMMENT '更新时间',
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`,`menu_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -57,6 +94,7 @@ INSERT INTO `sys_menu` VALUES ('4', '菜单管理', '', '', 'menu/manager', '2',
 INSERT INTO `sys_menu` VALUES ('6', 'caidan', '', '', '', '1', '0', '', '2018-04-16 16:17:29', '', null, '0');
 INSERT INTO `sys_menu` VALUES ('12', '1222', '', '', '', '2', '6', '', '2018-04-16 16:17:37', '', null, '0');
 INSERT INTO `sys_menu` VALUES ('13', '权限管理', '', '', 'authority/manager', '2', '1', '', '2018-04-16 17:02:34', '', null, '0');
+INSERT INTO `sys_menu` VALUES ('14', '部门管理', '', '', 'department/manager', '2', '1', '', '2018-05-10 10:00:10', '', null, '0');
 
 -- ----------------------------
 -- Table structure for `sys_role`
